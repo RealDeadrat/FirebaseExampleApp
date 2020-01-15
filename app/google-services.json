@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "202368111851",
+    "firebase_url": "https://eventdatabasesyed3620.firebaseio.com",
+    "project_id": "eventdatabasesyed3620",
+    "storage_bucket": "eventdatabasesyed3620.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202368111851:android:54929f766c699eb0a19aae",
+        "android_client_info": {
+          "package_name": "com.example.firebaseexampleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202368111851-3aci4o08bj03mg9vvk89ho2a9c039urv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHT-snsu1gARXTrEjtDPDDg1E8SP02aH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202368111851-3aci4o08bj03mg9vvk89ho2a9c039urv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

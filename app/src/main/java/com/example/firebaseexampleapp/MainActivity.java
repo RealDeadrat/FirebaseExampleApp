@@ -1,8 +1,10 @@
 package com.example.firebaseexampleapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,12 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,11 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private int dateDay;
     private int dateYear;
 
+    FirebaseDatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        dbHelper = new FirebaseDatabaseHelper();
         //  Video to learn basic access to CalendarView Data
         //  https://www.youtube.com/watch?v=WNBE_3ZizaA
 
@@ -59,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
            Log.i(TAG, "Trying to add: " + eventName + ", " + dateSelected);
+
+           Event newEvent = new Event(eventName, dateSelected, dateYear, dateMonth, dateDay);
+
+           eventNameET.setText("");
+           dbHelper.addEvent(newEvent);
         }
     }
 
@@ -75,5 +91,13 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public void onRetrieve(View v){
+                Intent intent = new Intent(MainActivity.this, DisplayEventsActivity.class);
+                intent.putExtra("events", dbHelper.getEventsArrayList());
+                startActivity(intent);
+
+
     }
 }
