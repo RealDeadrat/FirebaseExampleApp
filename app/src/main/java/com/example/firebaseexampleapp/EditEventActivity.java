@@ -48,9 +48,46 @@ EditEventActivity extends AppCompatActivity {
         {
             // prevents the app from crashing if user doesn't use correct date format
             try{
+                String monthS = newDate.substring(0, 2);
+                String dayS =  newDate.substring(3, 5);
+
+                if(monthS.toString().contains("/"))
+                {
+                    newDate = "0" + newDate;
+                }
+                if(dayS.toString().contains("/"))
+                {
+                    String newdate1 = newDate.substring(0,3);
+                    String newdate2 = newDate.substring(3,newDate.length());
+                    newDate = newdate1 + "0" + newdate2;
+                }
+
+                String yearS =  newDate.substring(6);
+
+                if(yearS.length() == 1)
+                {
+                    String newdate1 = newDate.substring(0,6);
+                    String newdate2 = newDate.substring(6,newDate.length());
+                    newDate = newdate1 + "200" + newdate2;
+
+                    Toast.makeText(EditEventActivity.this, "The year was assumed to be 200" + yearS + " Edit this if incorrect", Toast.LENGTH_SHORT).show();
+                }
+                else if(yearS.length() == 2)
+                {
+                    String newdate1 = newDate.substring(0,6);
+                    String newdate2 = newDate.substring(6,newDate.length());
+                    newDate = newdate1 + "20" + newdate2;
+
+                    Toast.makeText(EditEventActivity.this, "The year was assumed to be 20" + yearS + " Edit this if incorrect", Toast.LENGTH_SHORT).show();
+                }
+                else if(yearS.length() != 4)
+                {
+                    Toast.makeText(EditEventActivity.this, "Please follow MM/DD/YYYY format", Toast.LENGTH_SHORT).show();
+                }
+
                 int month = Integer.parseInt(newDate.substring(0, 2));
-                int day =  Integer.parseInt(newDate.substring(3, 5));
-                int year =  Integer.parseInt(newDate.substring(6));
+                int day = Integer.parseInt(newDate.substring(3, 5));
+                int year = Integer.parseInt(newDate.substring(6));
 
                 if (month > 0 && month < 13 && day > 0 && day < 32 )
                     dbHelper.updateEvent(keyToUpdate, newName, newDate, month, day, year);
@@ -60,7 +97,7 @@ EditEventActivity extends AppCompatActivity {
             }
             catch (Exception e) {
 
-                Toast.makeText(EditEventActivity.this, "Please enter date as MM/DD/YYYY", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditEventActivity.this, "Your date is grossly miss formatted, try the MM/DD/YYYY format", Toast.LENGTH_SHORT).show();
             }
         }
     }
